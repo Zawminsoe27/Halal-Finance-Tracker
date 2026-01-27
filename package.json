@@ -1,0 +1,23 @@
+{
+  "name": "personal-finance-tracker",
+  "version": "1.0.0",
+  "description": "A simple, local-first personal finance tracker focused on halal-friendly budgeting and expense tracking. This repository contains a minimal web app (HTML/CSS/JS) for tracking income, expenses, and viewing simple reports.",
+  "homepage": "https://github.com/Zawminsoe27/Halal-Finance-Tracker#readme",
+  "bugs": {
+    "url": "https://github.com/Zawminsoe27/Halal-Finance-Tracker/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zawminsoe27/Halal-Finance-Tracker.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "firebase": "^12.8.0"
+  }
+}

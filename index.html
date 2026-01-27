@@ -6,14 +6,88 @@
     <title>Halal Finnance Tracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-gray-100 min-h-screen">
+  <body class="bg-purple-50 min-h-screen">
     <!-- Header Section  -->
-    <header class="bg-emerald-600 text-white p-4">
+    <header class="bg-purple-600 text-white p-4">
       <h1 class="text-xl font-bold">Halal Finance Tracker</h1>
       <p class="text-sm opacity-90">Track Your income & expense halal way</p>
     </header>
 
     <!-- Main  -->
-    <main class="p-4 space-y-6"></main>
+    <main class="p-4 space-y-6">
+      <!-- Dash Board  -->
+      <input type="month" id="monthFilter" class="border p-2 rounded mb-3" />
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Balance Section  -->
+        <div class="bg-white p-4 rounded-xl shadow">
+          <p class="text-gray-500">Balance</p>
+          <h2 id="balance" class="text-2xl font-bold text-purple-600">0 MMK</h2>
+        </div>
+        <!-- ZAKAT  -->
+        <div class="bg-white p-4 rounded-xl shadow">
+          <p class="text-gray-500">Zakat Due</p>
+          <h2 id="zakat" class="text-2xl font-bold text-purple-700">0 MMK</h2>
+        </div>
+        <!-- Income  -->
+
+        <div class="bg-white p-4 rounded-xl shadow">
+          <p class="text-gray-500">Total Income</p>
+          <h2 id="income" class="text-2xl font-bold text-emerald-600">0 MMK</h2>
+        </div>
+
+        <!-- Expense  -->
+
+        <div class="bg-white p-4 rounded-xl shadow">
+          <p class="text-gray-500">Total Expense</p>
+          <h2 id="expense" class="text-2xl font-bold text-red-600">0 MMK</h2>
+        </div>
+      </section>
+
+      <section>
+        <h2></h2>
+        <form action="" class="grid grid-cols-1 md:grid-cols-5 gap-3">
+          <input
+            type="text"
+            placeholder="Description"
+            class="border p-2 rounded w-full"
+          />
+
+          <input
+            type="number"
+            placeholder="Amount"
+            class="border p-2 rounded w-full"
+          />
+
+          <select class="border p-2 rounded w-full">
+            <option>Income</option>
+            <option>Expense</option>
+          </select>
+          <input type="date" class="border p-2 rounded w-full" />
+          <button
+            type="submit"
+            class="bg-purple-600 text-white rounded px-4 py-2 hover:bg-purple-700"
+          >
+            ADD
+          </button>
+        </form>
+      </section>
+
+      <!-- Transactions List  -->
+
+      <section class="bg-white p-4 rounded-xl shadow">
+        <h2 class="text-lg font-semibold mb-2">Transactions</h2>
+
+        <ul class="space-y-2">
+          <li class="flex justify-between border-b pb-2">
+            <span>Sample Income</span>
+            <span class="text=green-600">+100,000 MMK</span>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <script src="js/storage.js"></script>
+    <script src="js/transaction.js"></script>
+    <script src="js/zakat.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
