@@ -1,26 +1,38 @@
 const monthFilter = document.getElementById("monthFilter");
 const transactionList = document.querySelector("ul");
+const submitBtn = document.querySelector("form button");
 
-monthFilter.addEventListener("change", renderTransactions);
+let editingId = null;
 
-function renderTransactions() {
-  const selectMonths = monthFilter.value;
+monthFilter.addEventListener("change", renderApp);
+
+// Render App
+function renderApp() {
   const transactions = getTransactions();
+  const filtered = getFilteredTransactions(transactions, monthFilter.value);
+  renderTransactions(filtered);
+  renderDashboard(filtered);
+}
+
+function getFilteredTransactions(transactions, month) {
+  if (!month) return transactions;
+
+  return transactions.filter((tx) => tx.date.slice(0, 7) === month);
+}
+
+// Render Transaction
+function renderTransactions(transactions) {
   transactionList.innerHTML = "";
 
-  const filteredTransactions = transactions.filter((tx) => {
-    if (!selectMonths) return true;
-    return tx.date.slice(0, 7) === selectMonths;
-  });
-
-  if (filteredTransactions.length === 0) {
+  if (transactions.length === 0) {
     transactionList.innerHTML = `
       <li class="text-center text-gray-400 py-4">
         No transactions found
       </li>
     `;
+    return;
   }
-  filteredTransactions.forEach((tx) => {
+  transactions.forEach((tx) => {
     const li = document.createElement("li");
     li.className = "flex justify-between border-b pb-2";
 
@@ -34,51 +46,66 @@ function renderTransactions() {
     </div>
     <div class= "flex gap-3 items-center">
 	<span class="${color}">${sign}${tx.amount.toLocaleString()} MMK </span>
-  <button class="text-sm text-gray-400 hover:text-red-500 delete-btn" data-id = "${tx.id}">
+  <button class="text-sm text-white hover:bg-red-500 delete-btn bg-red-600 px-3 py-1 rounded-md" data-id = "${tx.id}">
   X
+  </button>
+  <button class="text-sm text-white hover:bg-blue-500 edit-btn bg-blue-600 px-3 py-1 rounded-md" data-id = "${tx.id}">
+  Edit
   </button>
   </div>
 	`;
 
     transactionList.appendChild(li);
   });
-  updateDashboard(filteredTransactions);
 }
 
 transactionList.addEventListener("click", (e) => {
-  if (e.target.dataset.id) {
+  const id = Number(e.target.dataset.id);
+  if (e.target.classList.contains("delete-btn")) {
     deleteTransaction(Number(e.target.dataset.id));
+    renderApp();
+  }
+  if (e.target.classList.contains("edit-btn")) {
+    startEditingTransaction(id);
   }
 });
 
-function updateDashboard(filteredTransactions) {
-  const zakatEl = document.getElementById("zakat");
-  const transactions = filteredTransactions || getTransactions();
+function startEditingTransaction(id) {
+  const tx = getTransactions().find((t) => t.id === id);
+  if (!tx) return;
+
+  editingId = id;
+
+  descriptionInput.value = tx.description;
+  amountInput.value = tx.amount;
+  typeSelect.value = tx.type;
+  dateInput.value = tx.date;
+
+  submitBtn.textContent = "UpdateTransaction";
+}
+
+function clearEditing() {
+  editingId = null;
+  submitBtn.textContent = "Add Transaction";
+}
+function renderDashboard(transactions) {
+  const { income, expense, balance, savings } = getSummary(transactions);
   const zakatInfo = calculateZakat(transactions);
 
-  let income = 0;
-  let expense = 0;
-
-  transactions.forEach((tx) => {
-    if (tx.type === "Income") {
-      income += tx.amount;
-    } else {
-      expense += tx.amount;
-    }
-  });
-
+  document.getElementById("savings").textContent =
+    savings.toLocaleString() + " MMK";
   document.getElementById("income").textContent =
     income.toLocaleString() + " MMK";
   document.getElementById("expense").textContent =
     expense.toLocaleString() + " MMK";
-
   document.getElementById("balance").textContent =
-    (income - expense).toLocaleString() + "MMK";
-  if (zakatInfo.eligible) {
-    0.0;
-    zakatEl.textContent = zakatInfo.zakat.toLocaleString() + " MMK";
-  } else {
-    zakatEl.textContent = "Below Nisab";
-  }
+    balance.toLocaleString() + " MMK";
+
+  const zakatEl = document.getElementById("zakat");
+
+  zakatEl.textContent = zakatInfo.eligible
+    ? zakatInfo.zakat.toLocaleString() + " MMK"
+    : "Below Nisab";
 }
-renderTransactions();
+
+renderApp();

@@ -1,24 +1,26 @@
 const NISAB = 4488000;
 
 function calculateZakat(transactions) {
-  let zakatableAmount = 0;
+  let savings = 0;
 
-  transactions.forEach((tx) => {
+  transactions. Each((tx) => {
     if (tx.type === "Income") {
-      zakatableAmount += tx.amount;
+      savings += tx.amount;
+    } else {
+      savings -= tx.amount;
     }
   });
-  if (zakatableAmount < NISAB) {
+  if (savings < NISAB) {
     return {
       eligible: false,
       zakat: 0,
-      zakatableAmount,
+      zakatableAmount: savings,
     };
   }
 
   return {
     eligible: true,
-    zakat: zakatableAmount * 0.025,
-    zakatableAmount,  
+    zakat: savings * 0.025,
+    zakatableAmount: savings,
   };
 }
