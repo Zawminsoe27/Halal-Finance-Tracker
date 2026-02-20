@@ -4,21 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>Halal Finnance Tracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-purple-50 min-h-screen">
+  <body id="body" class="bg-purple-50 min-h-screen transition-all duration-300">
     <!-- Header Section  -->
-    <header class="bg-purple-600 text-white p-4">
-      <h1 class="text-xl font-bold">Halal Finance Tracker</h1>
-      <p class="text-sm opacity-90">Track Your income & expense halal way</p>
+    <header
+      class="bg-purple-600 text-white p-4 flex justify-between items-center"
+    >
+      <div>
+        <h1 class="text-xl font-bold">Halal Finance Tracker</h1>
+        <p class="text-sm opacity-90">Track Your income & expense halal way</p>
+      </div>
+
+      <button
+        id="darkModeToggle"
+        class="bg-white text-purple-600 px-3 py-1 rounded-md text-sm font-medium"
+      >
+        Dark
+      </button>
     </header>
 
     <!-- Main  -->
     <main class="p-4 space-y-6">
       <!-- Dash Board  -->
       <input type="month" id="monthFilter" class="border p-2 rounded mb-3" />
+      <input
+        type="text"
+        name=""
+        id="searchInput"
+        placeholder="Search description..."
+        class="border p-2 rounded w-full"
+      />
       <p>Savings: <span id="savings">0 MMK</span></p>
+
+      <div class="md:flex md:justify-between align-center">
+        <div class="mt-6 w-96 h-64 mx-auto">
+          <canvas id="financeChart"></canvas>
+        </div>
+        <div class="w-48 mt-6 h-64 mx-auto">
+          <canvas id="expensePieChart"></canvas>
+        </div>
+      </div>
       <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- Balance Section  -->
         <div class="bg-white p-4 rounded-xl shadow">
@@ -64,6 +92,17 @@
             <option>Income</option>
             <option>Expense</option>
           </select>
+
+          <select name="" id="categorySelect" class="border p-2 rounded w-full">
+            <option value="Salary">Salary</option>
+            <option value="Food">Food</option>
+            <option value="Transport">Transport</option>
+            <option value="Rent">Rent</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Investment">Investment</option>
+            <option value="Other">Other</option>
+          </select>
+
           <input type="date" class="border p-2 rounded w-full" />
           <button
             type="submit"
@@ -73,6 +112,22 @@
           </button>
         </form>
       </section>
+
+      <div class="flex justify-between">
+        <button
+          id="exportBtn"
+          class="bg-purple-60t0 text-white px-4 py-2 rounded hover:bg-purple-900 mb-3"
+        >
+          Export CSV
+        </button>
+
+        <button
+          id="exportExcelBtn"
+          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-3"
+        >
+          Export Excel
+        </button>
+      </div>
 
       <!-- Transactions List  -->
 
@@ -87,11 +142,15 @@
         </ul>
       </section>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
     <script src="./js/selector.js"></script>
     <script src="js/savings.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/transaction.js"></script>
     <script src="js/zakat.js"></script>
+
     <script src="js/app.js"></script>
   </body>
 </html>

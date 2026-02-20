@@ -15,16 +15,18 @@ function validateTransaction(tx) {
 function handleSubmit(e) {
   e.preventDefault();
 
-  // const description = descriptionInput.value.trim();
-  // const amount = Number(amountInput.value);
-  // const type = typeSelect.value;
-  // const date =dateInput.value || new Date().toISOString().slice(0, 10);
+  const description = descriptionInput.value.trim();
+  const amount = Number(amountInput.value);
+  const type = typeSelect.value;
+  const date = dateInput.value || new Date().toISOString().slice(0, 10);
+  const category = categorySelect.value;
   let transaction = {
-    id: editingId || Date.now(),
+    id: editingId ? editingId : Date.now(),
     description: descriptionInput.value.trim(),
     amount: Number(amountInput.value),
     type: typeSelect.value,
     date: dateInput.value || new Date().toISOString().slice(0, 10),
+    category: category, 
   };
   const error = validateTransaction(transaction);
 
@@ -33,19 +35,18 @@ function handleSubmit(e) {
     return;
   }
 
-  let transactions = getTransactions(); 
+  let transactions = getTransactions();
   if (editingId) {
     transactions = transactions.map((tx) =>
       tx.id === editingId ? transaction : tx,
     );
-    clearEditing();
   } else {
     transactions.push(transaction);
   }
   saveTransactions(transactions);
   form.reset();
+  clearEditing();
   renderApp();
-
 }
 
 function deleteTransaction(id) {

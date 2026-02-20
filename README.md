@@ -1,40 +1,53 @@
 # Halal Finance Tracker
 
-A simple, local-first personal finance tracker focused on halal-friendly budgeting and expense tracking. This repository contains a minimal web app (HTML/CSS/JS) for tracking income, expenses, and viewing simple reports.
+A simple, local-first personal finance tracker focused on halal-friendly budgeting and expense tracking. This repository contains a minimal client-side web app (HTML/CSS/JS) for tracking income, expenses, and viewing simple summaries.
 
-**Features:**
+Features
 - Track income and expenses
 - Categorize transactions (e.g., Groceries, Bills, Zakat)
 - Monthly summary and running balance
-- Lightweight, client-side single-page app (no server required)
+- Client-side storage (no server required)
 
-**Quick Start**
-- Open [index.html](index.html) in your browser to run the app locally.
-- For a simple local server (recommended for some browser features):
+Quick start
+- Open `index.html` in your browser.
+- To run a local server (recommended):
 
 ```bash
 python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
-**Project Structure**
-- index.html — main UI
-- css/ — styles
-- js/ — JavaScript app logic
-- assets/ — images and icons
+Usage
+- Add transactions using the app UI in `index.html`.
+- Use categories to filter and summarize spending.
+- Export or screenshot the data if you need backups — the app is local-first and does not sync.
 
-**Development**
-- Edit files in `js/` and `css/`, then reload the browser.
-- Consider using a live-reload extension or a small dev server for faster feedback.
+Project structure
+- `index.html` — app shell and UI
+- `css/` — styles
+- `js/` — application logic (see `js/app.js`)
+- `assets/` — images and icons
 
-**Contributing**
-- Feel free to open issues or PRs to suggest features, fix bugs, or improve documentation.
+Development
+- Edit files in `js/` and `css/`, then reload the page.
+- Use a live-reload tool or the simple Python server above for faster feedback.
 
-**License**
-This project is provided under the MIT License. See the LICENSE file or add one if needed.
+Data format
+- Transactions are stored in browser storage (LocalStorage). If you want CSV export, I can add an export button.
 
-**Contact**
-Repository: https://github.com/Zawminsoe27/Halal-Finance-Tracker
+Contributing
+- Open issues or PRs to suggest features or fixes.
+- If you send a PR, include a short description and screenshots where sensible.
 
-Enjoy — and let me know if you want me to add a screenshot, example data, or CI for deployments.
-# Halal-Finance-Tracker
+License
+- MIT (add a `LICENSE` file if you want the license text included).
+
+Contact
+- Repo: https://github.com/Zawminsoe27/Halal-Finance-Tracker
+
+Next steps I can help with
+- Add sample data and a demo mode
+- Add CSV export / import
+- Add screenshots or a GIF for the README
+
+If you want any of the above, tell me which and I'll implement it.

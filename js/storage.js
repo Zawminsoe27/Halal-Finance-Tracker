@@ -11,11 +11,20 @@ function getSummary(transactions) {
   let expense = 0;
 
   transactions.forEach((tx) => {
-    tx.type === "Income" ? (income += tx.amount) : (expense += tx.amount);
-
-    const balance = income - expense;
-    const savings = balance > 0 ? balance : 0;
-
-    return { income, expense, balance, savings };
+    if (tx.type === "Income") {
+      income += tx.amount;
+    } else {
+      expense += tx.amount;
+    }
   });
+
+  const balance = income - expense;
+  const savings = balance > 0 ? balance : 0;
+
+  return {
+    income,
+    expense,
+    balance,
+    savings,
+  };
 }

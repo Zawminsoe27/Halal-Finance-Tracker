@@ -3,7 +3,7 @@ const NISAB = 4488000;
 function calculateZakat(transactions) {
   let savings = 0;
 
-  transactions. Each((tx) => {
+  transactions.forEach((tx) => {
     if (tx.type === "Income") {
       savings += tx.amount;
     } else {
